@@ -13,7 +13,6 @@ do
     echo $info
     if echo "$info" | grep -q "Connected: no"; then
        mac_address=$( echo $info | grep -oP "([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}")
-       echo $mac_address
        bluetoothctl remove $mac_address
     fi
 done
@@ -25,5 +24,6 @@ do
     if echo "$info" | grep -q "Name: $device_name"; then 
         bluetoothctl pair "$info" | grep "Name" | grep -v "Name: " 
         bluetoothctl connect "$info" | grep "Name" | grep -v "Name: " 
+        echo "$info" | grep "Name" | grep -v "Name: "
     fi
 done
